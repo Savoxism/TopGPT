@@ -1,0 +1,15 @@
+Prompted with topics that are highly represented in the data, it is capable of generating reasonable responses about 50% of the time.
+
+Fine-tuning offers the potential for more detailed control over generated samples—for example, we can fine-tune GPT‑2 on the Amazon Reviews dataset and use this to let us write reviews conditioned on things like star rating and category.
+
+RLHF unlocks the capabilities that GPT-3 already had, but were difficult to elicit through prompt engineering alone: this is because our training procedure has a limited ability to teach the model new capabilities relative to what is learned during pretraining, since it uses less than 2% of the compute and data relative to model pretraining.
+
+A limitation of this approach is that it introduces an “alignment tax”: aligning the models only on customer tasks can make their performance worse on some other academic NLP tasks. This is undesirable since, if our alignment techniques make models worse on tasks that people care about, they’re less likely to be adopted in practice. We’ve found a simple algorithmic change that minimizes this alignment tax: during RL fine-tuning we mix in a small fraction of the original data used to train GPT‑3, and train on this data using the normal log likelihood maximization.D This roughly maintains performance on safety and human preferences, while mitigating performance decreases on academic tasks, and in several cases even surpassing the GPT‑3 baseline.
+
+---
+# Evaluation 
+perplexity
+embedding similarity
+style score
+human evaluation
+AI as a judge
