@@ -24,8 +24,7 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 INPUT_PATH    = "supervised_finetuning/data/instructions.json"
 OUTPUT_PATH   = "DPO/data/dpo_train.jsonl"
 MAX_EXAMPLES  = 2000         # adjust if needed
-FLUSH_EVERY   = 25          # write to disk in batches
-SHUFFLE       = False    
+FLUSH_EVERY   = 25          # write to disk in batches 
 
 colorama_init(autoreset=True)
 
@@ -84,9 +83,6 @@ if os.path.exists(OUTPUT_PATH):
 print(f"{Fore.CYAN}Found {already_written} existing records – resuming…{Style.RESET_ALL}")
 
 dataset = dataset[already_written:]  
-
-if SHUFFLE:
-    random.shuffle(dataset)
 
 remaining_budget = MAX_EXAMPLES - already_written
 total = min(len(dataset), remaining_budget)
