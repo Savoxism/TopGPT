@@ -37,33 +37,7 @@ def search(query, max_results=50):
     pbar.close()
     return vids
 
-queries = [
-    "Andrew Tate inspirational journey documentary",
-    "Andrew Tate entrepreneur success story",
-    "Andrew Tate confidence-building talk",
-    "Andrew Tate wealth mindset masterclass",
-    "Andrew Tate no-excuses self-improvement speech",
-    "Andrew Tate peak performance strategy video",
-    "Andrew Tate resilience and perseverance advice",
-    "Andrew Tate life-changing mindset coaching",
-    "Andrew Tate goal-setting and achievement seminar",
-]
-
-
-all_v = []
-for q in queries:
-    all_v.extend(search(q, max_results=10))
-
-df = (
-    pd.DataFrame(all_v)
-      .drop_duplicates("videoId")
-      .reset_index(drop=True)
-)
-
-df['publishedAt'] = pd.to_datetime(df['publishedAt'])
-df_sorted = df.sort_values('publishedAt', ascending=False).reset_index(drop=True)
-
-def filter_min_duration(df, min_seconds=900):
+def filter_min_duration(df, min_seconds=1200):
     keep_ids = []
     for i in tqdm(range(0, len(df), 50), desc="Filtering by duration"):
         batch_ids = df["videoId"].iloc[i:i+50].tolist()
@@ -80,7 +54,26 @@ def filter_min_duration(df, min_seconds=900):
                     keep_ids.append(item["id"])
     return df[df["videoId"].isin(keep_ids)].copy()
 
-df_filtered = filter_min_duration(df_sorted)
+# adjust these things
+MAX_RESULTS = 10
+queries = [
+    "Andrew Tate: The Power of Your Mind - 1 Hour Powerful Speech | Motivational Video | 2025"
+    "Andrew Tate motivational speech long",
+]
 
+all_v = []
+for q in queries:
+    all_v.extend(search(q, max_results=10))
+
+df = (
+    pd.DataFrame(all_v)
+      .drop_duplicates("videoId")
+      .reset_index(drop=True)
+)
+
+df['publishedAt'] = pd.to_datetime(df['publishedAt'])
+df_sorted = df.sort_values('publishedAt', ascending=False).reset_index(drop=True)
+
+df_filtered = filter_min_duration(df_sorted)
 df_filtered.to_csv("fetched.csv", index=False)
 print(f"Saved {len(df_filtered)} videos ≥ 30 min to CSV.")

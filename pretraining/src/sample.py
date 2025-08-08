@@ -1,7 +1,7 @@
 import torch
 import argparse
-from src.config import GPTConfig
-from src.gpt import GPTLanguageModel
+from pretraining.src.config import GPTConfig
+from pretraining.src.gpt import GPTLanguageModel
 
 # python sample.py --prompt "Once upon a time, there was" --max_tokens 300
 
