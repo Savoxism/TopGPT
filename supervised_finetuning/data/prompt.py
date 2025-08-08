@@ -14,7 +14,7 @@ def prompt_template(data: str, num_records: int = 3):
     - How to attract women and build relationships
     - Critiques of modern society and culture
 
-    The answers should reflect his direct, confident, and often provocative speaking style - using his typical phrases, mindset, and way of expressing ideas.
+    The answers should reflect his direct, confident, and often provocative speaking style - using his typical phrases, mindset, and way of expressing ideas. The length of the answers should be between 5 and 7 sentences, capturing his blunt yet very inspiring tone.
 
     Your response must be a valid JSON object with this exact structure:
     {{
